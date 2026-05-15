@@ -186,8 +186,28 @@ nav.scrolled{background:rgba(8,13,24,0.96);backdrop-filter:blur(14px);border-bot
 /* ===== MEMBERSHIP ===== */
 #membership{padding:7rem 0;background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
 .membership-inner{max-width:1280px;margin:0 auto;padding:0 3.5rem}
-.rank-tabs{display:flex;border:1px solid var(--border);width:fit-content;margin-top:3.5rem}
-.rank-tab{padding:0.7rem 1.8rem;font-family:'DM Mono',monospace;font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;cursor:none;border:none;background:transparent;color:var(--gray);border-right:1px solid var(--border);transition:all 0.3s}
+.rank-tabs{
+  display:flex;
+  flex-wrap:nowrap;
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+  border:1px solid var(--border);
+  width:100%;
+  margin-top:3.5rem;
+  gap:0.5rem;
+  scrollbar-width:none;      /* Firefox */
+  -ms-overflow-style:none;   /* IE/Edge */
+  gap:1px;
+  
+}
+
+.rank-tabs::-webkit-scrollbar{
+  display:none;              /* Chrome/Safari */
+}
+
+.rank-tabs button{
+  flex-shrink:0;
+}.rank-tab{padding:0.7rem 1.8rem;font-family:'DM Mono',monospace;font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;cursor:none;border:none;background:transparent;color:var(--gray);border-right:1px solid var(--border);transition:all 0.3s}
 .rank-tab:last-child{border-right:none}
 .rank-tab.active,.rank-tab:hover{background:var(--card);color:var(--white)}
 .rank-tab[data-rank="bronze"].active{color:#CD7F32}
@@ -278,6 +298,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:2.5rem 3.
   footer{flex-direction:column;gap:1.2rem;text-align:center}
   body{cursor:auto}
   .cursor,.cursor-ring{display:none}
+  .rank-tabs reveal visible{opacity:1;
 }
 </style>
 </head>
