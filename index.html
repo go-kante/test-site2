@@ -54,7 +54,7 @@ nav.scrolled{background:rgba(8,13,24,0.96);backdrop-filter:blur(14px);border-bot
 .hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(4.5rem,10vw,10rem);font-weight:300;line-height:0.92;color:var(--white);opacity:0;animation:fadeUp 1.2s 0.4s forwards}
 .hero-title em{font-style:italic;color:var(--gold2)}
 .hero-sub{margin-top:2rem;font-size:0.95rem;color:var(--gray);letter-spacing:0.06em;line-height:2;opacity:0;animation:fadeUp 1s 0.7s forwards}
-.hero-scroll{position:absolute;bottom:2.5rem;display:flex;flex-direction:column;align-items:center;gap:0.5rem;opacity:0;animation:fadeUp 1s 1.4s forwards}
+.hero-scroll{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:0.5rem;opacity:0;animation:fadeUp 1s 1.4s forwards}
 .hero-scroll span{font-family:'DM Mono',monospace;font-size:0.58rem;letter-spacing:0.25em;color:var(--gray);text-transform:uppercase}
 .scroll-bar{width:1px;height:48px;background:linear-gradient(to bottom,var(--gold),transparent);animation:pulse 2s ease-in-out infinite}
 
@@ -186,35 +186,6 @@ nav.scrolled{background:rgba(8,13,24,0.96);backdrop-filter:blur(14px);border-bot
 /* ===== MEMBERSHIP ===== */
 #membership{padding:7rem 0;background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
 .membership-inner{max-width:1280px;margin:0 auto;padding:0 3.5rem}
-.rank-tabs{
-  display:flex;
-  flex-wrap:nowrap;
-  overflow-x:auto;
-  -webkit-overflow-scrolling:touch;
-  border:1px solid var(--border);
-  width:100%;
-  margin-top:3.5rem;
-  gap:0.5rem;
-  scrollbar-width:none;      /* Firefox */
-  -ms-overflow-style:none;   /* IE/Edge */
-  gap:1px;
-  
-}
-
-.rank-tabs::-webkit-scrollbar{
-  display:none;              /* Chrome/Safari */
-}
-
-.rank-tabs button{
-  flex-shrink:0;
-}.rank-tab{padding:0.7rem 1.8rem;font-family:'DM Mono',monospace;font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;cursor:none;border:none;background:transparent;color:var(--gray);border-right:1px solid var(--border);transition:all 0.3s}
-.rank-tab:last-child{border-right:none}
-.rank-tab.active,.rank-tab:hover{background:var(--card);color:var(--white)}
-.rank-tab[data-rank="bronze"].active{color:#CD7F32}
-.rank-tab[data-rank="silver"].active{color:#C0C0C0}
-.rank-tab[data-rank="black"].active{color:#D4D4D4}
-.rank-tab[data-rank="founder"].active{color:#818CF8}
-.rank-tab[data-rank="imperial"].active{color:#A855F7}
 
 .rank-panels{margin-top:2.5rem}
 .rank-panel{display:none;grid-template-columns:280px 1fr;gap:3rem;align-items:start}
@@ -287,18 +258,127 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:2.5rem 3.
 /* No results */
 .no-results{grid-column:1/-1;text-align:center;padding:4rem;font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--gray);font-style:italic}
 
+/* Rank tabs — full width like cat-tabs */
+.rank-tabs{display:flex;border:1px solid var(--border);width:100%;margin-top:3.5rem}
+.rank-tab{flex:1;padding:0.7rem 0.5rem;font-family:'DM Mono',monospace;font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;cursor:none;border:none;background:transparent;color:var(--gray);border-right:1px solid var(--border);transition:all 0.3s;white-space:nowrap;text-align:center}
+.rank-tab:last-child{border-right:none}
+.rank-tab.active,.rank-tab:hover{background:var(--card);color:var(--white)}
+.rank-tab[data-rank="bronze"].active{color:#CD7F32}
+.rank-tab[data-rank="silver"].active{color:#C0C0C0}
+.rank-tab[data-rank="black"].active{color:#D4D4D4}
+.rank-tab[data-rank="founder"].active{color:#818CF8}
+.rank-tab[data-rank="imperial"].active{color:#A855F7}
+
+/* Mobile hamburger */
+.nav-hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+.nav-hamburger span{display:block;width:22px;height:1px;background:var(--gold2);transition:all 0.3s}
+.nav-hamburger.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.nav-hamburger.open span:nth-child(2){opacity:0}
+.nav-hamburger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+
+/* Mobile drawer */
+.mobile-drawer{display:flex;pointer-events: none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:190;background:rgba(8,13,24,0.98);backdrop-filter:blur(16px);flex-direction:column;align-items:center;justify-content:center;gap:2.5rem;opacity:0;transition:opacity 0.35s}
+.mobile-drawer.open{opacity: 1;
+  pointer-events: auto;  /* 開いてるときだけタップ有効 */
+  visibility: visible;}
+.mobile-drawer a{color:var(--lightgray);text-decoration:none;font-family:'DM Mono',monospace;font-size:1rem;letter-spacing:0.2em;text-transform:uppercase;transition:color 0.3s;border-bottom:1px solid transparent;padding-bottom:2px}
+.mobile-drawer a:hover{color:var(--gold2);border-color:var(--gold)}
+.mobile-drawer .drawer-resell{margin-top:1rem;padding:0.8rem 2.5rem;border:1px solid var(--gold);color:var(--gold);font-family:'DM Mono',monospace;font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;text-decoration:none;transition:background 0.3s,color 0.3s}
+.mobile-drawer .drawer-resell:hover{background:var(--gold);color:#08080F;border-color:var(--gold)}
+
+/* ===== RESELL PAGE OVERLAY ===== */
+#resellPage{display:none;position:fixed;inset:0;z-index:500;background:var(--bg);overflow-y:auto}
+#resellPage.open{display:block}
+.rp-nav{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 3rem;background:rgba(8,13,24,0.97);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+.rp-logo{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;color:var(--gold2);letter-spacing:0.15em}
+.rp-back{display:flex;align-items:center;gap:0.6rem;color:var(--lightgray);font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;cursor:none;border:none;background:none;transition:color 0.3s}
+.rp-back:hover{color:var(--gold2)}
+.rp-back svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2}
+.rp-hero{padding:5rem 3rem 3.5rem;border-bottom:1px solid var(--border)}
+.rp-eyebrow{font-family:'DM Mono',monospace;font-size:0.62rem;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;margin-bottom:0.8rem}
+.rp-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.8rem,6vw,5.5rem);font-weight:300;color:var(--white);line-height:1.05;margin-bottom:1rem}
+.rp-title em{font-style:italic;color:var(--gold2)}
+.rp-desc{font-size:0.88rem;color:var(--gray);line-height:2;max-width:500px}
+.rp-main{padding:4rem 3rem;display:grid;grid-template-columns:1fr 360px;gap:4rem;align-items:start;max-width:1280px}
+.rp-field{display:flex;flex-direction:column;gap:0.4rem;margin-bottom:1.1rem}
+.rp-field label{font-family:'DM Mono',monospace;font-size:0.58rem;letter-spacing:0.2em;color:var(--gold);text-transform:uppercase}
+.rp-field input,.rp-field textarea,.rp-field select{background:var(--card);border:1px solid var(--border);color:var(--offwhite);padding:0.82rem 1rem;font-family:'Noto Serif JP',serif;font-size:0.87rem;outline:none;transition:border-color 0.3s;width:100%}
+.rp-field input:focus,.rp-field textarea:focus,.rp-field select:focus{border-color:var(--gold)}
+.rp-field textarea{resize:vertical;min-height:88px}
+.rp-field select option{background:var(--card)}
+.rp-field-hint{font-size:0.7rem;color:var(--gray);margin-top:0.2rem;line-height:1.5}
+.rp-field-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.rp-block-title{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:400;color:var(--white);margin-bottom:0.3rem}
+.rp-block-sub{font-size:0.8rem;color:var(--gray);margin-bottom:1.5rem;line-height:1.7}
+.rp-sep{height:1px;background:var(--border);margin-bottom:1.5rem}
+.rp-block{margin-bottom:3rem}
+.rp-price-wrap{position:relative}
+.rp-price-wrap input{padding-left:1.8rem}
+.rp-price-wrap::before{content:'¥';position:absolute;left:0.9rem;top:50%;transform:translateY(-50%);color:var(--gold);font-family:'DM Mono',monospace;font-size:0.82rem;pointer-events:none}
+.rp-upload{border:1px dashed var(--border);padding:2rem;text-align:center;position:relative;transition:border-color 0.3s,background 0.3s}
+.rp-upload:hover{border-color:var(--gold);background:var(--gold-dim)}
+.rp-upload input{position:absolute;inset:0;opacity:0;width:100%;height:100%}
+.rp-upload-icon{width:28px;height:28px;stroke:var(--gold);fill:none;stroke-width:1.5;margin:0 auto 0.6rem}
+.rp-upload-label{font-family:'DM Mono',monospace;font-size:0.62rem;letter-spacing:0.12em;color:var(--lightgray);text-transform:uppercase}
+.rp-upload-hint{font-size:0.7rem;color:var(--gray);margin-top:0.3rem}
+.rp-agree{display:flex;align-items:flex-start;gap:0.7rem;margin-top:0.4rem}
+.rp-agree input{accent-color:var(--gold);margin-top:3px;flex-shrink:0}
+.rp-agree span{font-size:0.78rem;color:var(--gray);line-height:1.7}
+.rp-agree a{color:var(--gold);text-decoration:none}
+.rp-submit-row{margin-top:1.8rem;display:flex;gap:1rem;align-items:center}
+.rp-btn-submit{padding:0.95rem 2.8rem;background:var(--gold);color:#08080F;font-family:'DM Mono',monospace;font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;border:none;cursor:none;transition:background 0.3s,transform 0.2s}
+.rp-btn-submit:hover{background:var(--gold2);transform:translateY(-2px)}
+.rp-btn-cancel{padding:0.95rem 1.6rem;background:transparent;border:1px solid var(--border);color:var(--gray);font-family:'DM Mono',monospace;font-size:0.66rem;letter-spacing:0.12em;text-transform:uppercase;cursor:none;transition:border-color 0.3s,color 0.3s}
+.rp-btn-cancel:hover{border-color:var(--gold);color:var(--gold)}
+.rp-sidebar{position:sticky;top:5rem;display:flex;flex-direction:column;gap:1.5rem}
+.rp-scard{background:var(--card);border:1px solid var(--border);padding:1.8rem;position:relative;overflow:hidden}
+.rp-scard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--gold)}
+.rp-scard-title{font-family:'DM Mono',monospace;font-size:0.58rem;letter-spacing:0.2em;color:var(--gold);text-transform:uppercase;margin-bottom:1.1rem}
+.rp-fee-row{display:flex;justify-content:space-between;align-items:center;padding:0.55rem 0;border-bottom:1px solid var(--border2);font-size:0.8rem}
+.rp-fee-row:last-child{border-bottom:none;padding-top:0.7rem;color:var(--white);font-weight:500}
+.rp-fee-label{color:var(--gray)}
+.rp-fee-val{font-family:'DM Mono',monospace;color:var(--offwhite)}
+.rp-steps{display:flex;flex-direction:column}
+.rp-step-item{display:flex;gap:0.8rem;align-items:flex-start;padding:0.7rem 0;border-bottom:1px solid var(--border2)}
+.rp-step-item:last-child{border-bottom:none}
+.rp-step-n{font-family:'DM Mono',monospace;font-size:0.58rem;color:var(--gold);flex-shrink:0;padding-top:0.12rem}
+.rp-step-t{font-size:0.78rem;color:var(--lightgray);line-height:1.5}
+.rp-success{display:none;position:fixed;inset:0;z-index:600;background:rgba(8,13,24,0.97);align-items:center;justify-content:center;flex-direction:column;gap:1.2rem;text-align:center;padding:2rem}
+.rp-success.show{display:flex}
+.rp-success-icon{width:56px;height:56px;border:1px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center}
+.rp-success-icon svg{width:22px;height:22px;stroke:var(--gold);fill:none;stroke-width:2}
+.rp-success h2{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:300;color:var(--white)}
+.rp-success h2 em{font-style:italic;color:var(--gold2)}
+.rp-success p{font-size:0.85rem;color:var(--gray);line-height:2;max-width:380px}
+.rp-success-btn{margin-top:0.8rem;padding:0.85rem 2.2rem;border:1px solid var(--gold);color:var(--gold2);font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;background:transparent;cursor:none;transition:background 0.3s,color 0.3s}
+.rp-success-btn:hover{background:var(--gold);color:#08080F}
 @media(max-width:960px){
+  .rp-nav{padding:1rem 1.2rem}
+  .rp-hero{padding:4rem 1.2rem 2.5rem}
+  .rp-main{grid-template-columns:1fr;padding:2.5rem 1.2rem;gap:2rem}
+  .rp-sidebar{position:static}
+  .rp-field-row{grid-template-columns:1fr}
   nav{padding:1.2rem 1.5rem}
   .nav-links{display:none}
-  section,.usecases-inner,.search-inner,.resell-inner,.membership-inner,.contact-inner{padding-left:1.5rem;padding-right:1.5rem}
-  .usecases-grid,.resell-grid,.rank-panel,.form-row{grid-template-columns:1fr}
-  .listing-grid,.rank-panel.active{grid-template-columns:1fr}
-  .cat-tabs{flex-wrap:wrap}
+  .nav-resell{display:none}
+  .nav-hamburger{display:flex}
+  .mobile-drawer{display:flex}
+  section,.usecases-inner,.search-inner,.resell-inner,.membership-inner,.contact-inner{padding-left:1.2rem;padding-right:1.2rem}
+  .usecases-grid,.resell-grid,.form-row{grid-template-columns:1fr}
+  .rank-panel{display:none;grid-template-columns:1fr}
+  .rank-panel.active{display:grid}
+  .listing-grid{grid-template-columns:1fr}
+  .cat-tabs{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .cat-tabs::-webkit-scrollbar{display:none}
+  .rank-tabs{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;width:100%}
+  .rank-tabs::-webkit-scrollbar{display:none}
   .search-row{grid-template-columns:1fr 1fr}
   footer{flex-direction:column;gap:1.2rem;text-align:center}
   body{cursor:auto}
   .cursor,.cursor-ring{display:none}
-  .rank-tabs reveal visible{opacity:1;
+  .usecase-card h3{word-break:keep-all}
+  .section-title{word-break:keep-all}
+  * { cursor:auto !important; }
 }
 </style>
 </head>
@@ -306,6 +386,15 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:2.5rem 3.
 
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
+
+<!-- Mobile drawer -->
+<div class="mobile-drawer" id="mobileDrawer">
+  <a href="#search" onclick="closeDrawer()">検索</a>
+  <a href="#resell" onclick="closeDrawer()">出品</a>
+  <a href="#membership" onclick="closeDrawer()">会員制度</a>
+  <a href="#contact" onclick="closeDrawer()">Contact</a>
+  <a href="#" class="drawer-resell" onclick="openResellPage();closeDrawer();return false;">出品ページへ進む</a>
+</div>
 
 <!-- NAV -->
 <nav id="nav">
@@ -316,7 +405,10 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:2.5rem 3.
     <li><a href="#membership">会員制度</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <a href="#resell" class="nav-resell">出品する</a>
+  <a href="#" class="nav-resell" onclick="openResellPage();return false;">出品する</a>
+  <button class="nav-hamburger" id="hamburger" onclick="toggleDrawer()" aria-label="メニュー">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
 <!-- ① HERO -->
@@ -338,17 +430,17 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:2.5rem 3.
 <section id="usecases">
   <div class="usecases-inner">
     <p class="section-label reveal">Use Cases</p>
-    <h2 class="section-title reveal reveal-delay-1">Alfarasが<em>選ばれる</em>場面</h2>
+    <h2 class="section-title reveal reveal-delay-1">Alfarasが<br><em>選ばれる</em>場面</h2>
     <div class="usecases-grid">
       <div class="usecase-card reveal">
         <div class="usecase-num">01</div>
-        <h3>大切な方への<em>プレゼントに</em></h3>
+        <h3>大切な方への<br><em>プレゼントに</em></h3>
         <p>記念日・誕生日・プロポーズ・出産祝い——言葉では伝えきれない気持ちを、特別な体験という形で贈ることができます。NFT化された体験券はそのままギフトとして転送でき、受け取った方が最適なタイミングで使用できます。高級ホテルの一室からミシュランの貸切まで、あなたの想いに相応しい体験を見つけてください。</p>
         <span class="usecase-tag">Gift / Present</span>
       </div>
       <div class="usecase-card reveal reveal-delay-1">
         <div class="usecase-num">02</div>
-        <h3><em>特別な体験</em>を特別な価格で</h3>
+        <h3><em>特別な体験</em>を<br>特別な価格で</h3>
         <p>通常のルートでは手に入らない高級ホテルのスイートルーム、年末年始の特別枠、会員制レストランの貸切——Alfarasでは市場に流通しにくい希少な体験を適正価格で提供します。リセール市場からも良質な体験券が出品されており、正規販売終了後でも特別な瞬間を手に入れるチャンスがあります。</p>
         <span class="usecase-tag">Premium Access</span>
       </div>
@@ -513,7 +605,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:2.5rem 3.
         <div class="resell-cta-box">
           <h3>お持ちのNFTを<em>出品する</em></h3>
           <p>購入した体験券を都合に合わせてリセール。<br>売却手数料は業界最低水準の2%。</p>
-          <a href="#contact" class="btn-resell">出品ページへ進む</a>
+          <button class="btn-resell" onclick="openResellPage()">出品ページへ進む</button>
         </div>
       </div>
     </div>
@@ -789,6 +881,41 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:2.5rem 3.
 </footer>
 
 <script>
+// ===== RESELL PAGE =====
+function openResellPage(){
+  const p=document.getElementById('resellPage');
+  p.classList.add('open');
+  p.scrollTop=0;
+}
+function closeResellPage(){
+  document.getElementById('resellPage').classList.remove('open');
+  document.getElementById('rpSuccess').classList.remove('show');
+}
+function rpCalcFee(){
+  const v=parseInt(document.getElementById('rpPriceInput').value)||0;
+  const fee=Math.round(v*0.02);
+  document.getElementById('rpSidePrice').textContent=v?'¥'+v.toLocaleString():'¥ —';
+  document.getElementById('rpSideFee').textContent=v?'¥'+fee.toLocaleString():'¥ —';
+  document.getElementById('rpSideNet').textContent=v?'¥'+(v-fee).toLocaleString():'¥ —';
+}
+function rpSubmit(e){
+  e.preventDefault();
+  document.getElementById('rpSuccess').classList.add('show');
+}
+
+// ===== MOBILE DRAWER =====
+function toggleDrawer(){
+  const d=document.getElementById('mobileDrawer');
+  const h=document.getElementById('hamburger');
+  const isOpen=d.classList.contains('open');
+  d.classList.toggle('open',!isOpen);
+  h.classList.toggle('open',!isOpen);
+}
+function closeDrawer(){
+  document.getElementById('mobileDrawer').classList.remove('open');
+  document.getElementById('hamburger').classList.remove('open');
+}
+
 // ===== CURSOR =====
 const cur = document.getElementById('cursor');
 const ring = document.getElementById('cursorRing');
@@ -1023,5 +1150,188 @@ function handleSubmit(e){
   setTimeout(()=>{btn.textContent='送信する';btn.style.background='';e.target.reset()},3000);
 }
 </script>
+<!-- ===== RESELL PAGE OVERLAY ===== -->
+<div id="resellPage">
+  <!-- Success screen -->
+  <div class="rp-success" id="rpSuccess">
+    <div class="rp-success-icon">
+      <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+    <h2>出品を<em>受け付けました</em></h2>
+    <p>ご出品内容を確認のうえ、審査完了後にメールにてご連絡いたします。通常2〜3営業日以内にご連絡いたします。</p>
+    <button class="rp-success-btn" onclick="closeResellPage()">マーケットプレイスに戻る</button>
+  </div>
+
+  <!-- Nav -->
+  <div class="rp-nav">
+    <span class="rp-logo">Alfaras</span>
+    <button class="rp-back" onclick="closeResellPage()">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      マーケットプレイスに戻る
+    </button>
+  </div>
+
+  <!-- Hero -->
+  <div class="rp-hero">
+    <p class="rp-eyebrow">Resell — List Your NFT</p>
+    <h1 class="rp-title">体験券を<br><em>出品する</em></h1>
+    <p class="rp-desc">お持ちのNFT体験券をAlfarasマーケットプレイスに出品できます。ご利用できない日程の体験券を次の方へ。売却手数料は業界最低水準の2%です。</p>
+  </div>
+
+  <!-- Main -->
+  <div class="rp-main">
+    <form id="rpForm" onsubmit="rpSubmit(event)">
+
+      <div class="rp-block">
+        <h2 class="rp-block-title">出品するNFTの情報</h2>
+        <p class="rp-block-sub">出品するNFT体験券の詳細をご入力ください。</p>
+        <div class="rp-sep"></div>
+        <div class="rp-field">
+          <label>NFT体験券の種別</label>
+          <select required>
+            <option value="">選択してください</option>
+            <optgroup label="宿泊"><option>ホテル</option><option>ヴィラ</option><option>旅館</option><option>貸別荘</option></optgroup>
+            <optgroup label="体験"><option>VIP体験（F1・花火船・ミシュラン貸切等）</option><option>プロポーズ演出</option><option>その他VIP体験</option></optgroup>
+            <optgroup label="会員権"><option>ゴルフ会員権</option><option>サウナ会員権</option><option>ホテル会員権</option><option>シェア別荘</option></optgroup>
+          </select>
+        </div>
+        <div class="rp-field">
+          <label>施設名・体験名</label>
+          <input type="text" placeholder="例：アマン東京 コーナースイート" required>
+        </div>
+        <div class="rp-field-row">
+          <div class="rp-field">
+            <label>エリア（都道府県）</label>
+            <select required>
+              <option value="">選択してください</option>
+              <option>東京</option><option>神奈川</option><option>大阪</option><option>京都</option><option>北海道</option><option>沖縄</option><option>福岡</option><option>愛知</option><option>兵庫</option><option>千葉</option><option>埼玉</option><option>静岡</option><option>広島</option><option>宮城</option><option>石川</option><option>長野</option><option>三重</option><option>山梨</option><option>奈良</option><option>その他</option>
+            </select>
+          </div>
+          <div class="rp-field">
+            <label>利用可能期限</label>
+            <input type="date" required>
+          </div>
+        </div>
+        <div class="rp-field">
+          <label>NFTコントラクトアドレス / トークンID</label>
+          <input type="text" placeholder="0x... / #1234">
+          <span class="rp-field-hint">ウォレットの詳細ページから確認できます。不明な場合は空欄でも可。</span>
+        </div>
+        <div class="rp-field">
+          <label>体験券の詳細・特記事項</label>
+          <textarea placeholder="部屋タイプ、人数、含まれるサービス、注意事項など"></textarea>
+        </div>
+      </div>
+
+      <div class="rp-block">
+        <h2 class="rp-block-title">価格設定</h2>
+        <p class="rp-block-sub">売却希望価格を設定してください。Alfarasの手数料（2%）が差し引かれた金額が入金されます。</p>
+        <div class="rp-sep"></div>
+        <div class="rp-field-row">
+          <div class="rp-field">
+            <label>売却希望価格（税込）</label>
+            <div class="rp-price-wrap">
+              <input type="number" placeholder="500000" min="10000" step="1000" required id="rpPriceInput" oninput="rpCalcFee()">
+            </div>
+          </div>
+          <div class="rp-field">
+            <label>最低売却価格（任意）</label>
+            <div class="rp-price-wrap">
+              <input type="number" placeholder="400000" min="10000" step="1000">
+            </div>
+            <span class="rp-field-hint">この価格未満では売却しません。</span>
+          </div>
+        </div>
+        <div class="rp-field">
+          <label>出品有効期限</label>
+          <select><option>7日間</option><option selected>14日間</option><option>30日間</option><option>60日間</option><option>期限なし</option></select>
+        </div>
+      </div>
+
+      <div class="rp-block">
+        <h2 class="rp-block-title">画像のアップロード</h2>
+        <p class="rp-block-sub">施設・体験の写真をアップロードすると購入率が向上します。</p>
+        <div class="rp-sep"></div>
+        <div class="rp-upload">
+          <input type="file" accept="image/*" multiple>
+          <svg class="rp-upload-icon" viewBox="0 0 24 24"><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/></svg>
+          <div class="rp-upload-label">クリックまたはドラッグ＆ドロップ</div>
+          <div class="rp-upload-hint">PNG・JPG・WEBP / 最大5枚 / 各10MB以下</div>
+        </div>
+      </div>
+
+      <div class="rp-block">
+        <h2 class="rp-block-title">出品者情報</h2>
+        <p class="rp-block-sub">審査完了後、ご連絡先にメールをお送りします。</p>
+        <div class="rp-sep"></div>
+        <div class="rp-field-row">
+          <div class="rp-field">
+            <label>お名前</label>
+            <input type="text" placeholder="山田 太郎" required>
+          </div>
+          <div class="rp-field">
+            <label>メールアドレス</label>
+            <input type="email" placeholder="info@example.com" required>
+          </div>
+        </div>
+        <div class="rp-field">
+          <label>ウォレットアドレス</label>
+          <input type="text" placeholder="0x...">
+          <span class="rp-field-hint">NFTの所有確認のために使用します。</span>
+        </div>
+        <div class="rp-field">
+          <label>振込先口座情報</label>
+          <input type="text" placeholder="銀行名・支店名・口座番号・口座名義">
+          <span class="rp-field-hint">売却完了後の入金先として使用します。</span>
+        </div>
+        <div class="rp-agree">
+          <input type="checkbox" required>
+          <span>Alfarasの<a href="#">利用規約</a>および<a href="#">出品ガイドライン</a>に同意します。</span>
+        </div>
+        <div class="rp-submit-row">
+          <button type="submit" class="rp-btn-submit">出品申請を送信する</button>
+          <button type="button" class="rp-btn-cancel" onclick="closeResellPage()">キャンセル</button>
+        </div>
+      </div>
+
+    </form>
+
+    <!-- Sidebar -->
+    <aside class="rp-sidebar">
+      <div class="rp-scard">
+        <div class="rp-scard-title">手数料の内訳</div>
+        <div class="rp-fee-row"><span class="rp-fee-label">売却希望価格</span><span class="rp-fee-val" id="rpSidePrice">¥ —</span></div>
+        <div class="rp-fee-row"><span class="rp-fee-label">Alfaras手数料（2%）</span><span class="rp-fee-val" id="rpSideFee">¥ —</span></div>
+        <div class="rp-fee-row"><span class="rp-fee-label">お受取額（概算）</span><span class="rp-fee-val" id="rpSideNet">¥ —</span></div>
+      </div>
+      <div class="rp-scard">
+        <div class="rp-scard-title">出品から入金までの流れ</div>
+        <div class="rp-steps">
+          <div class="rp-step-item"><span class="rp-step-n">01</span><span class="rp-step-t">出品申請を送信</span></div>
+          <div class="rp-step-item"><span class="rp-step-n">02</span><span class="rp-step-t">Alfarasによる審査（2〜3営業日）</span></div>
+          <div class="rp-step-item"><span class="rp-step-n">03</span><span class="rp-step-t">マーケットプレイスに掲載開始</span></div>
+          <div class="rp-step-item"><span class="rp-step-n">04</span><span class="rp-step-t">購入者決定後、NFTが自動転送</span></div>
+          <div class="rp-step-item"><span class="rp-step-n">05</span><span class="rp-step-t">手数料差引後に即時入金</span></div>
+        </div>
+      </div>
+      <div class="rp-scard">
+        <div class="rp-scard-title">出品のポイント</div>
+        <div style="display:flex;flex-direction:column;gap:0.6rem">
+          <p style="font-size:0.78rem;color:var(--gray);line-height:1.7">— 写真を複数枚アップロードすると購入率が約2倍になります</p>
+          <p style="font-size:0.78rem;color:var(--gray);line-height:1.7">— 利用可能期限が近いほど早期売却が見込めます</p>
+          <p style="font-size:0.78rem;color:var(--gray);line-height:1.7">— 詳細な説明文は購入者の安心感を高めます</p>
+          <p style="font-size:0.78rem;color:var(--gray);line-height:1.7">— 元の購入価格に近い価格設定が成約率を上げます</p>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <div style="background:var(--bg);border-top:1px solid var(--border);padding:2rem 3rem;display:flex;align-items:center;justify-content:space-between">
+    <span style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;color:var(--gold2);letter-spacing:0.15em">Alfaras</span>
+    <span style="font-family:'DM Mono',monospace;font-size:0.58rem;color:var(--gray);letter-spacing:0.08em;text-align:center">Alfaras Co., Ltd. &nbsp;|&nbsp; &copy; 2025 Alfaras. All rights reserved.</span>
+    <button onclick="closeResellPage()" style="font-family:'DM Mono',monospace;font-size:0.6rem;color:var(--gray);background:none;border:none;cursor:none;letter-spacing:0.08em;transition:color 0.3s" onmouseover="this.style.color='var(--gold2)'" onmouseout="this.style.color='var(--gray)'">マーケットプレイスに戻る</button>
+  </div>
+</div>
+
 </body>
 </html>
